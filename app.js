@@ -10,8 +10,10 @@ app.get("/", function(req, res) {
 
 app.listen(8080);
 
-console.log("working");
 
-mtg.card.find(3).then(result => {
-	console.log(result); // "Black Lotus"
+//Get all standard legal card objects
+mtg.card.all({
+	gameFormat: 'Standard',
+}).on('data', function (card) {
+  console.log(card)
 });
