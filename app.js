@@ -11,9 +11,18 @@ app.get("/", function(req, res) {
 app.listen(8080);
 
 
-//Get all standard legal card objects
-mtg.card.all({
-	gameFormat: 'Standard',
-}).on('data', function (card) {
-  console.log(card)
-});
+const standardCards = []
+
+const getStandard = new Promise((resolve, reject) => {
+	// Get all standard legal card objects
+	mtg.card.all({
+		gameFormat: 'Standard',
+	}).on('data', (card) => {
+	  resolve(standardCards.push(card))
+	});
+})
+
+
+getStandard.then( () => {
+	console.log(standardCards)
+})
